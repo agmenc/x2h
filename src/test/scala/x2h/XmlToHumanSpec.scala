@@ -1,6 +1,7 @@
 package x2h
 
 import org.scalatest.WordSpec
+import x2h.X2H._
 
 class XmlToHumanSpec extends WordSpec with XmlComparisons {
   val yuckyXml =
@@ -9,7 +10,7 @@ class XmlToHumanSpec extends WordSpec with XmlComparisons {
     </xml>
 
   "We can strip namespaces out of XML" in {
-    assert(X2H(yuckyXml).xml =*= <xml><name>Some name element</name></xml>)
+    assert(yuckyXml.xml =*= <xml><name>Some name element</name></xml>)
   }
 
   val fpml =
@@ -44,6 +45,6 @@ class XmlToHumanSpec extends WordSpec with XmlComparisons {
       |    amount: 2000.00""".stripMargin
 
   "We can display XML in a human-readable form" in {
-    assert(X2H(fpml).toString == humanisedFpml)
+    assert(fpml.humanString == humanisedFpml)
   }
 }

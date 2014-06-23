@@ -1,7 +1,7 @@
 package x2h
 
 import scala.xml.{Elem, NodeSeq}
-import x2h.XmlPimps._
+import x2h.X2H._
 
 trait XmlComparisons {
   def normalise(xml: NodeSeq): NodeSeq = xml.traverse(filterOut = emptyText).to[List] match {

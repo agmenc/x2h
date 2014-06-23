@@ -1,20 +1,13 @@
 package x2h
 
 import scala.xml._
-import x2h.XmlPimps._
 
-case class X2H(uglyXml: NodeSeq) {
-  def xml: NodeSeq = uglyXml traverse { case e: Elem => e.copy(scope = TopScope, prefix = null) }
-
-  override def toString = xml.toHumanString
-
-  def toHtml: NodeSeq = ??? // xml traverse ( filterOut = emptyText )
-}
-
-object XmlPimps {
+object X2H {
   implicit class TraversableFilterableNodeSeq(ns: NodeSeq) {
+    def xml: NodeSeq = ns traverse { case e: Elem => e.copy(scope = TopScope, prefix = null) }
+    def humanString = toHumanString(ns, 0)
+    def html: NodeSeq = ???
     def traverse(transform: PartialFunction[Node, Node] = noChange, filterOut: PartialFunction[Node, Boolean] = all): NodeSeq = traverse(ns, transform, filterOut)
-    def toHumanString: String = toHumanString(ns, 0)
 
     private def noChange: PartialFunction[Node, Node] = {case n => n}
     private def all: PartialFunction[Node, Boolean] = { case _ => true }
