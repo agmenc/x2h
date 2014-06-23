@@ -4,9 +4,22 @@ XML to Human
 Copy the X2H pimp into your codebase somewhere (!) and `import x2h.X2H._`.
 
 ### `X2H.xml`
-Strip namespace bumf from messy XML:
-* before: ```<xml xmlns:bob="some/irrelevant/uri"><bob:name>Some name element</bob:name></xml>```
-* after: ```<xml><name>Some name element</name></xml>```
+Strip namespace bumf from messy XML
+##### before:
+```<xml xmlns:bob="some/irrelevant/uri"><bob:name>Some name element</bob:name></xml>```
+##### after:
+```<xml><name>Some name element</name></xml>```
+##### example:
+```scala
+import x2h.X2H._
+val yuckyXml =
+    <xml xmlns:bob="some/irrelevant/uri">
+      <bob:name>Some name element</bob:name>
+    </xml>
+
+assert(yuckyXml.xml =*= <xml><name>Some name element</name></xml>)
+```
+
 
 ### `X2H.humanString`
 Print human-readable documents:
